@@ -59,7 +59,8 @@ function writeToFile(fileName, data) {
     const fileName = './dist/README.md';
 
     fs.writeFile(filename, data, function (err) {
-        err ? console.log(err) : console.log(filename + " created")
+        err ? console.log(err) 
+        : console.log(filename + " created")
     });
 }
 
