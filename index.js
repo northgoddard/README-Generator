@@ -3,7 +3,6 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown');
-const { deserialize } = require('v8');
 
 const licenses = ['None', 'MIT', 'BSD', 'GPL', 'Apache']
 
@@ -55,20 +54,22 @@ const questions = [
 
 // TODO: Create a function to write README file
 
-function writeToFile(fileName, data) {
-    const fileName = './dist/README.md';
+function writeToFile(data) {
+    const filename = './dist/README.md';
 
     fs.writeFile(filename, data, function (err) {
-        err ? console.log(err) 
-        : console.log(filename + " created")
+       err ? console.log(err) : console.log( filename + 'README.md created!')
     });
 }
 
 // TODO: Create a function to initialize app
 
-function init() {
-    inquirer.createPromptModule(questions).then (answers => writeToFile(generateMarkdown(answers)))
-}
+const init = async () => {
+    inquirer.prompt(questions)
+    .then (answers => {
+        writeToFile(generateMarkdown(answers));
+    }) 
+  };
 
 // Function call to initialize app
 init();

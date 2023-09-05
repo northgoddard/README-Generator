@@ -58,7 +58,43 @@ function renderLicenseSection(license) {
 // TODO: Create a function to generate markdown for README
 
 function generateMarkdown(data) {
-  const sections = ["Description", "Installation", "Usage", "Contributing", "Tests", "License", "Questions"];
+  const sections = ["Description", "Installation", "Usage", "Contributing", "License", "Questions"];
+
+  let markdown = "# " + data.title + "\n";
+
+  markdown += renderLicenseBadge(data.license) + "\n";
+
+  markdown += "\n## Table of Contents\n";
+  for (let i = 0; i < sections.length; i++) {
+    if (! (sections[i] === "License" && data.license === "None")) {
+      markdown += i+1 + ". [" + sections[i] + "](#" + sections[i][0].toUpperCase() + sections[i].substring(1) + ")\n";
+    }
+  }
+
+  markdown += "\n";
+
+  markdown += "## " + sections[0] + "\n";
+  markdown += data.description + "\n";
+
+  markdown += "## " + sections[1] + "\n";
+  markdown += data.installation + "\n";
+
+  markdown += "## " + sections[2] + "\n";
+  markdown += data.usage + "\n";
+
+  markdown += "## " + sections[3] + "\n";
+  markdown += data.guidelines + "\n";
+
+  markdown += "## " + sections[4] + "\n";
+  markdown += data.tests + "\n";
+
+  markdown += renderLicenseSection(data.license) + "\n";
+
+  markdown += "## " + sections[5] + "\n";
+  markdown += "You can find me on [GitHub](https://github.com/" + data.username + ") on GitHub\n";
+  markdown += "You can conntact me at " + data.email + " with any questions\n";
+
+  return markdown;
 }
 
 module.exports = generateMarkdown;
